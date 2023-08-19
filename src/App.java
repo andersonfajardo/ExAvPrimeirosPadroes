@@ -11,7 +11,7 @@ public class App {
         consultas.datasEmQueChouveuMaisDe(90)
             .forEach(System.out::println);
 
-        Predicate<RegistroDoTempo> consultaPersonalizada = reg -> reg.getTempMaxima() > 30;
+        Predicate<RegistroDoTempo> consultaPersonalizada = reg -> reg.getTempMinima() < 4;
         consultas.alteraConsultaPadrao(consultaPersonalizada);
     
         System.out.println("Datas em que a condição padrão se aplica:");

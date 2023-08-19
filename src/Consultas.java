@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.xml.crypto.Data;
+
 public class Consultas {
     private RegistroDoTempoRepository registros;
     private Predicate<RegistroDoTempo> consultaPadrao;
@@ -53,7 +55,7 @@ public class Consultas {
         this.consultaPadrao = consulta;
     }
 
-    public List<String> diasEmQue() {
+    public List<DataDTO> diasEmQue() {
         List<RegistroDoTempo> registrosFiltrados = registros.buscarTodos()
             .stream()
             .filter(consultaPadrao) // Usa a condição padrão ou a condição personalizada definida
@@ -61,7 +63,7 @@ public class Consultas {
 
         return registrosFiltrados
             .stream()
-            .map(reg -> reg.getDia() + "/" + reg.getMes() + "/" + reg.getAno())
+            .map(RegistroDoTempo::getData)
             .collect(Collectors.toList());
     }
 

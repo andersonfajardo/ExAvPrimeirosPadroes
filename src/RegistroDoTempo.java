@@ -1,5 +1,9 @@
 //data precip maxima minima horas_insol temp_media um_relativa vel_vento
+
+import javax.xml.crypto.Data;
+
 public class RegistroDoTempo {
+    private DataDTO dataDto;
     private int dia;
     private int mes;
     private int ano;
@@ -13,6 +17,8 @@ public class RegistroDoTempo {
     
     public RegistroDoTempo(int dia, int mes, int ano, double precipitacao, double tempMaxima, double tempMinima,
             double horasInsolacao, double temperaturaMedia, double umidadeRelativaDoAr, double velocidadeDoVento) {
+        
+        this.dataDto = new DataDTO(dia, mes, ano);        
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;
@@ -103,6 +109,14 @@ public class RegistroDoTempo {
 
     public void setVelocidadeDoVento(double velocidadeDoVento) {
         this.velocidadeDoVento = velocidadeDoVento;
+    }
+
+        public DataDTO getData() {
+            return dataDto;
+    }
+
+    public void setData(DataDTO dataDto) {
+        this.dataDto = dataDto;
     }
 
     @Override
