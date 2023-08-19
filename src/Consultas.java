@@ -1,11 +1,15 @@
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Consultas {
     private RegistroDoTempoRepository registros;
+    private Predicate<RegistroDoTempo> consultaPadrao;
 
     public Consultas(RegistroDoTempoRepository repository) {
         this.registros = repository;
+        this.consultaPadrao = reg -> true; //defini o predicated como padrão - retorna todos
     }
 
     public void carregaDados(){
@@ -45,4 +49,20 @@ public class Consultas {
         return resp;
     }
     
+     public void alteraConsultaPadrao(Predicate<RegistroDoTempo> consulta) {
+        this.consultaPadrao = consulta;
+    }
+
+    public List<String> diasEmQue() {
+        List<RegistroDoTempo> registrosFiltrados = registros.buscarTodos()
+            .stream()
+            .filter(consultaPadrao) // Usa a condição padrão ou a condição personalizada definida
+            .collect(Collectors.toList());
+
+        return registrosFiltrados
+            .stream()
+            .map(reg -> reg.getDia() + "/" + reg.getMes() + "/" + reg.getAno())
+            .collect(Collectors.toList());
+    }
+
 }
