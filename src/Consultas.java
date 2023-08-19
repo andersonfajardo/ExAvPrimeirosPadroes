@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Consultas {
-    private List<RegistroDoTempo> registros;
-    private String nArq;
+    private RegistroDoTempoRepository repository;
 
-    public Consultas(){
-        registros = new LinkedList<>();
-        this.nArq = "poa_temps.txt";
+    public Consultas(RegistroDoTempoRepository repository) {
+        this.repository = repository;
     }
 
     public void carregaDados(){
